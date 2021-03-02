@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "ec555f52-a36d-41ab-aefc-6d86bf53c5c6",
+		"name": "Gorest Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "lista de usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    //console.log(\" respuesta general json\",res)\r",
+							"    const responseJson = pm.response.json();\r",
+							"   console.log(\" respuesta general json\",responseJson)\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[5]);\r",
+							"   // console.log(\"campo1:\",responseJson.country)\r",
+							"    //console.log(\"campo country:\",responseJson[0].country)\r",
+							"    //console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    //console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson.data[5].name).eql('Chandira Kaniyar VM');\r",
+							"    //pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    //pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    //pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('Inactive')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"      console.log(\" respuesta general json\",responseJson)\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[0]);\r",
+							"   // console.log(\"campo1:\",responseJson.country)\r",
+							"    //console.log(\"campo country:\",responseJson[0].country)\r",
+							"    //console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    //console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson.data[0].status).include('Active');\r",
+							"    //pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    //pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    //pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('email')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users?id=1305",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1305"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[0])\r",
+							"    pm.expect(responseJson.data.status).to.eql('Active')\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('status')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Ana Rosa Mamani Gutier\",\r\n    \"gender\": \"Male\",\r\n    \"email\":\"test609430626porquetest@15ceqqalber.com\",\r\n    \"status\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users/1336",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"1336"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creare User Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\" respuesta general json\",responseJson)\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[1])\r",
+							" \r",
+							"    pm.expect(responseJson.data[1].message).to.contain(\"can't be blank\")\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('code')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creare User ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 3000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Anita Ramakrishna\",\r\n    \"gender\": \"Male\",\r\n    \"email\":\"test609430626porquetest@15ceqqalber.com\",\r\n    \"status\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borra usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('null')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users/1334",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"1334"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista de publicaciones de todos los usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[1])\r",
+							"    pm.expect(responseJson.data[1].user_id).eql(2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('title')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/posts",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comentarios de todos  los  usuarios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[0]);\r",
+							"   // console.log(\"campo1:\",responseJson.country)\r",
+							"    //console.log(\"campo country:\",responseJson[0].country)\r",
+							"    //console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    //console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson.data[0].id).eql(1);\r",
+							"    //pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    //pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    //pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('post_id')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/comments",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "publicaciones por usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"      console.log(\"respueta formsato json por campos:\",responseJson)\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[3])\r",
+							" \r",
+							"    pm.expect(responseJson.data[3].title).eql('Publicacion Ana');\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('user_id')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users/2/posts",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"2",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comentarios por usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[0]);\r",
+							" \r",
+							"    pm.expect(responseJson.data[0].post_id).eql(2);\r",
+							" \r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('post_id')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/public-api/posts/2/comments",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"posts",
+						"2",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear  publicaciones por usuario fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data[1]);\r",
+							"    pm.expect(responseJson.data[1].field).to.contain(\"body\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('null')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users/2/posts",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"2",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear  publicaciones por usuario ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"\r",
+							"    console.log(\"respueta formsato json por campos:\",responseJson.data);\r",
+							" \r",
+							"    pm.expect(responseJson.data.user_id).eql(2);\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('201')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 2000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokeng}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Publicacion Ana Ros\",\r\n    \"body\":\"publicacion de prueba 4\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/public-api/users/2/posts",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"2",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
