@@ -1,0 +1,493 @@
+{
+	"info": {
+		"_postman_id": "40738e10-5b79-4b4c-960f-283d9a9d5786",
+		"name": "Practica_6_Covid API 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('pong')\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.quarantine.country/api/v1/ping",
+					"protocol": "https",
+					"host": [
+						"api",
+						"quarantine",
+						"country"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Api Ultima Actualizacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"console.log(\"Respuesa:\", response);\r",
+							"console.log(\"Respuesta campo status\", response.data.summary.total_cases);\r",
+							"\r",
+							"pm.test(\"Probar el campo status\", ()=>{\r",
+							"    pm.expect(response.status).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/summary/latest",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"summary",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API por region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('summary')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/summary/region?region=us&sub_area=1",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"summary",
+						"region"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "us"
+						},
+						{
+							"key": "sub_area",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api por region por dia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo de respuesta\", ()=>{\r",
+							"    //pm.response.to.be.ok;\r",
+							"    pm.response.to.be.not.ok;\r",
+							"    pm.response.to.have.status(500);\r",
+							"    pm.expect(pm.response.code).to.eql(500);\r",
+							"    pm.response.to.have.status(\"Internal Server Error\");\r",
+							"});\r",
+							"\r",
+							"console.log(pm.environment.get(\"base_url\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/day?region=us",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"day"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "us"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api por region por semana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo de respuesta\", ()=>{\r",
+							"    //pm.response.to.be.ok;\r",
+							"   // pm.response.to.be.not.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"console.log(pm.environment.get(\"base_url\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/week?region=russia",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"week"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "russia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api por region por mes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo de respuesta\", ()=>{\r",
+							"    //pm.response.to.be.ok;\r",
+							"   // pm.response.to.be.not.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 1000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/month?region=us",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"month"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "us"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api por region por año",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo de respuesta\", ()=>{\r",
+							"    //pm.response.to.be.ok;\r",
+							"   // pm.response.to.be.not.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/year?region=china",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"year"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "china"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API por region por lugar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 1500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/region?region=bolivia",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"region"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "bolivia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API por region actualizacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    \r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('2021-02-18')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 700ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{base_url}}/api/v1/spots/summary",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"spots",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

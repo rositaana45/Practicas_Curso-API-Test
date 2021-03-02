@@ -1,0 +1,970 @@
+{
+	"info": {
+		"_postman_id": "188c6852-5eb1-4c1b-991f-b5bef215cba1",
+		"name": "Practica_5_Covid_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Consulta por país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta:\",responseJson)\r",
+							"    console.log(\"campo1:\",responseJson.country)\r",
+							"    console.log(\"campo country:\",responseJson[0].country)\r",
+							"    console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson[0].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country?name=Bolivia&format=json",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Bolivia"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta por país error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country?name=soledad&format=json",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "soledad"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta todos los paIses ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"   console.log(\"respueta:\",responseJson)\r",
+							"    pm.expect(responseJson[26].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[26].country).to.be.a(\"string\");\r",
+							"    pm.expect(responseJson[26].confirmed).to.be.a(\"number\");\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 900ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country/all",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta todos los paIses error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 404\", ()=>{\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.expect(pm.response.code).to.eql(404);\r",
+							"   pm.response.to.have.status(\"Not Found\");\r",
+							"}); \r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('Error')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,404]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country/todos",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta por codigo de pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta:\",responseJson)\r",
+							"    console.log(\"campo1:\",responseJson.country)\r",
+							"    console.log(\"campo country:\",responseJson[0].country)\r",
+							"    console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson[0].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country/code?code=bo&format",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country",
+						"code"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "bo"
+						},
+						{
+							"key": "format",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta por codigo de pais error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/country/code?code=123&format",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"country",
+						"code"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "123"
+						},
+						{
+							"key": "format",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte todos los paises por fecha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"     console.log(\"campo1:\",responseJson)\r",
+							"    pm.expect(responseJson[20].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[20].country).to.be.a(\"string\");\r",
+							"  \r",
+							"    pm.expect(responseJson[20].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 1000ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/all?date=2020-05-05&date-format=YYYY-MM-DD&format=json",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"all"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2020-05-05"
+						},
+						{
+							"key": "date-format",
+							"value": "YYYY-MM-DD"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte todos los paises por fecha error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 400\", ()=>{\r",
+							"   // pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.expect(pm.response.code).to.eql(400);\r",
+							"    pm.response.to.have.status(\"Bad Request\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,404]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/all?date=2020-05-05&date-format=DD-MM-YYYY&format=json",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"all"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2020-05-05"
+						},
+						{
+							"key": "date-format",
+							"value": "DD-MM-YYYY"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte por codigo país usando  fecha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta:\",responseJson)\r",
+							"    console.log(\"campo1:\",responseJson.country)\r",
+							"    console.log(\"campo country:\",responseJson[0].country)\r",
+							"    console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson[0].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    //pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/code?code=BO&date=2020-05-05",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"code"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "BO"
+						},
+						{
+							"key": "date",
+							"value": "2020-05-05"
+						},
+						{
+							"key": "date-format",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte por codigo país usando  fecha error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('message')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/code?code=Mexico&date=2020-05-05",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"code"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "Mexico"
+						},
+						{
+							"key": "date",
+							"value": "2020-05-05"
+						},
+						{
+							"key": "date-format",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte por fecha usando nombre de país",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"respueta:\",responseJson)\r",
+							"    console.log(\"campo1:\",responseJson.country)\r",
+							"    console.log(\"campo country:\",responseJson[0].country)\r",
+							"    console.log(\"campo codigo de país:\",responseJson[0].code)\r",
+							"    console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson[0].country).to.eql(\"Bolivia\")\r",
+							"    pm.expect(responseJson[0].country).to.be.a(\"string\");\r",
+							"    pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('coun')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/name?name=Bolivia&date=2021-02-15&date-format=YYYY-MM-DD",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"name"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Bolivia"
+						},
+						{
+							"key": "date",
+							"value": "2021-02-15"
+						},
+						{
+							"key": "date-format",
+							"value": "YYYY-MM-DD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta reporte por fecha usando nombre de país error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 400\", ()=>{\r",
+							"    //pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.expect(pm.response.code).to.eql(400);\r",
+							"    //pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('status')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,404]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/country/name?name=bolivia&date=2021-02-15&date-format=DD-MM-YYYY",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"country",
+						"name"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "bolivia"
+						},
+						{
+							"key": "date",
+							"value": "2021-02-15"
+						},
+						{
+							"key": "date-format",
+							"value": "DD-MM-YYYY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta totales por fecha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/report/totals?date=2020-01-22&date-format=YYYY-MM-DD",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"report",
+						"totals"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2020-01-22"
+						},
+						{
+							"key": "date-format",
+							"value": "YYYY-MM-DD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta totales hasta la fecha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"validar el codigo 200\", ()=>{\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"validar formato json\",()=>{\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar campos body response\",()=>{\r",
+							"    const responseJson = pm.response.json();\r",
+							"    console.log(\"campo confirmados:\",responseJson.confirmed)\r",
+							"    pm.expect(responseJson[0].confirmed).to.be.a(\"number\");\r",
+							"    //pm.expect(responseJson[0].country).to.have.lengthOf(7)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar repuesta inlcuye un texto\",()=>{\r",
+							"    console.log(\"repuesta formato texto:\",pm.response.text)\r",
+							"    pm.expect(pm.response.text()).to.include('critical')\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"validar code status este dentro de unos codigos\",()=>{\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,204]);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"validar el tiempo de respuesta menor a 500ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://covid19-api.com/totals",
+					"protocol": "https",
+					"host": [
+						"covid19-api",
+						"com"
+					],
+					"path": [
+						"totals"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
